@@ -139,7 +139,7 @@ toc(t3);
 
 
 %%======================================================================
-%% STEP 5: Finetune softmax model
+%% STEP 4: Finetune softmax model
 
 % Implement the stackedAECost to give the combined cost of the whole model
 % then run this cell.
@@ -164,21 +164,14 @@ stackedAETheta = [ saeSoftmaxOptTheta ; stackparams ];
 %
 %
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+DeepOptions.Method = 'lbfgs';
+DeepOptions.display = 'on';
+DeepOptions.maxIter = 100;
+t4 = tic;
+[stackedAEOptTheta, cost] = minFunc( @(p) stackedAECost(p, ...
+    inputSize, hiddenSizeL2, numClasses, netconfig, lambda, trainData, trainLabels), ...
+    stackedAETheta, DeepOptions);
+toc(t4);
 
 % -------------------------------------------------------------------------
 
