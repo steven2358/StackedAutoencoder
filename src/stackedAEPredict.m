@@ -24,15 +24,24 @@ stack = params2stack(theta(hiddenSize*numClasses+1:end), netconfig);
 %  Instructions: Compute pred using theta assuming that the labels start 
 %                from 1.
 
+% feedforward pass over autoencoders
+depth = numel(stack);
+z = cell(depth+1,1);
+a = cell(depth+1,1);
+a{1} = data;
+for l=1:depth,
+    wa = stack{l}.w*a{l};
+    z{l+1} = bsxfun(@plus, wa, stack{l}.b);
+    a{l+1} = sigmoid(z{l+1});
+end
 
+% feedforward over softmax
+M = softmaxTheta*a{l+1};
+M = bsxfun(@minus, M, max(M, [], 1)); % prevent overflow
+h = exp(M); % hypotheses
+h = bsxfun(@rdivide, h, sum(h)); % normalize
 
-
-
-
-
-
-
-
+[mm, pred] = max(h, [], 1); %#ok<ASGLU>
 
 % -----------------------------------------------------------
 
