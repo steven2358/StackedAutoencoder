@@ -43,7 +43,7 @@ beta = 3;              % weight of sparsity penalty term
 trainLabels(trainLabels == 0) = 10; % Remap 0 to 10 since our labels need to start from 1
 
 %%======================================================================
-%% STEP 2: Train the first sparse autoencoder
+%% STEP 2a: Train the first sparse autoencoder
 %  This trains the first sparse autoencoder on the unlabelled STL training
 %  images.
 %  If you've correctly implemented sparseAutoencoderCost.m, you don't need
@@ -58,19 +58,16 @@ sae1Theta = initializeParameters(hiddenSizeL1, inputSize);
 %                an hidden size of "hiddenSizeL1"
 %                You should store the optimal parameters in sae1OptTheta
 
+addpath minFunc/
+options.Method = 'lbfgs'; % optimization algorithm
+options.maxIter = 400; % Maximum number of iterations of L-BFGS to run 
+options.display = 'on';
 
-
-
-
-
-
-
-
-
-
-
-
-
+t1 = tic;
+[sae1OptTheta, cost] = minFunc(@(p) sparseAutoencoderCostVectorized(...
+    p, inputSize, hiddenSizeL1, lambda, sparsityParam, beta, trainData), ...
+    sae1Theta, options);
+toc(t1);
 
 % -------------------------------------------------------------------------
 
