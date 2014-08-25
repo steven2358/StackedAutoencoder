@@ -74,7 +74,7 @@ toc(t1);
 
 
 %%======================================================================
-%% STEP 2: Train the second sparse autoencoder
+%% STEP 2b: Train the second sparse autoencoder
 %  This trains the second sparse autoencoder on the first autoencoder
 %  featurse.
 %  If you've correctly implemented sparseAutoencoderCost.m, you don't need
@@ -93,17 +93,11 @@ sae2Theta = initializeParameters(hiddenSizeL2, hiddenSizeL1);
 %
 %                You should store the optimal parameters in sae2OptTheta
 
-
-
-
-
-
-
-
-
-
-
-
+t2 = tic;
+[sae2OptTheta, cost] = minFunc(@(p) sparseAutoencoderCostVectorized(...
+    p, hiddenSizeL1, hiddenSizeL2, lambda, sparsityParam, beta, sae1Features), ...
+    sae2Theta, options);
+toc(t2);
 
 % -------------------------------------------------------------------------
 
