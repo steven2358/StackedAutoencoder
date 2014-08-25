@@ -1,5 +1,8 @@
 %% CS294A/CS294W Stacked Autoencoder Exercise
 
+close all
+clear all
+
 %  Instructions
 %  ------------
 % 
@@ -34,9 +37,9 @@ beta = 3;              % weight of sparsity penalty term
 %  This loads our training data from the MNIST database files.
 
 % Load MNIST database files
-trainData = loadMNISTImages('mnist/train-images-idx3-ubyte');
-trainLabels = loadMNISTLabels('mnist/train-labels-idx1-ubyte');
-
+% trainData = loadMNISTImages('mnist/train-images-idx3-ubyte');
+% trainLabels = loadMNISTLabels('mnist/train-labels-idx1-ubyte');
+[trainData,trainLabels] = get_mnist_data('train');
 trainLabels(trainLabels == 0) = 10; % Remap 0 to 10 since our labels need to start from 1
 
 %%======================================================================
