@@ -125,15 +125,14 @@ saeSoftmaxTheta = 0.005 * randn(hiddenSizeL2 * numClasses, 1);
 %  NOTE: If you used softmaxTrain to complete this part of the exercise,
 %        set saeSoftmaxOptTheta = softmaxModel.optTheta(:);
 
-
-
-
-
-
-
-
-
-
+SmOptions.Method = 'lbfgs';
+SmOptions.display = 'on';
+SmOptions.maxIter = 100;
+t3 = tic;
+[saeSoftmaxOptTheta, cost] = minFunc( @(p) softmaxCost(p, ...
+    numClasses, hiddenSizeL2, lambda, sae2Features, trainLabels), ...
+    saeSoftmaxTheta, SmOptions);
+toc(t3);
 
 % -------------------------------------------------------------------------
 
