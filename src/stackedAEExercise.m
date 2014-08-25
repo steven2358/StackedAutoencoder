@@ -185,9 +185,9 @@ toc(t4);
 
 % Get labelled test images
 % Note that we apply the same kind of preprocessing as the training set
-testData = loadMNISTImages('mnist/t10k-images-idx3-ubyte');
-testLabels = loadMNISTLabels('mnist/t10k-labels-idx1-ubyte');
-
+% testData = loadMNISTImages('mnist/t10k-images-idx3-ubyte');
+% testLabels = loadMNISTLabels('mnist/t10k-labels-idx1-ubyte');
+[testData,testLabels] = get_mnist_data('test');
 testLabels(testLabels == 0) = 10; % Remap 0 to 10
 
 [pred] = stackedAEPredict(stackedAETheta, inputSize, hiddenSizeL2, ...
@@ -201,6 +201,8 @@ fprintf('Before Finetuning Test Accuracy: %0.3f%%\n', acc * 100);
 
 acc = mean(testLabels(:) == pred(:));
 fprintf('After Finetuning Test Accuracy: %0.3f%%\n', acc * 100);
+
+fprintf('Total elapsed time: %d min.\n', round(toc(t1)/60));
 
 % Accuracy is the proportion of correctly classified images
 % The results for our implementation were:
