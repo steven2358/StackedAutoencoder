@@ -1,6 +1,12 @@
 function [images,labels] = get_mnist_data(dataset)
 % Returns images and labels for training or testing. Checks if data is in
 % '/data' folder and downloads from remote repository if necessary.
+%
+% Original URLs:
+% - http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+% - http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+% - http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+% - http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
 
 if nargin<1,
     dataset = 'train';
